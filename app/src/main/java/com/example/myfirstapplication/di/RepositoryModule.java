@@ -1,6 +1,6 @@
 package com.example.myfirstapplication.di;
 
-import com.example.myfirstapplication.data.repository.PokemonInMemoryRepository;
+import com.example.myfirstapplication.data.repository.PokemonRetrofitRepository;
 import com.example.myfirstapplication.data.repository.PokemonRepository;
 import dagger.Binds;
 import dagger.Module;
@@ -14,5 +14,5 @@ public abstract class RepositoryModule {
     
     @Binds
     @Singleton
-    public abstract PokemonRepository providePokemonRepository(PokemonInMemoryRepository implementation);
+    public abstract PokemonRepository providePokemonRepository(PokemonRetrofitRepository implementation);
 }

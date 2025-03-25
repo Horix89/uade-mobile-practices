@@ -1,0 +1,6 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-yaml # Verifica que los archivos YAML sean válidos
+      - id: check-json # Verifica que los archivos JSON sean válidos

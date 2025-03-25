@@ -41,15 +41,12 @@ public class PokemonInMemoryRepository implements PokemonRepository {
     }
 
     @Override
-    public List<Pokemon> getAllPokemons() {
-        return new ArrayList<>(pokemons);
+    public void getAllPokemons(PokemonServiceCallBack callback) {
+        callback.onSuccess(pokemons);
     }
 
     @Override
-    public Pokemon getPokemonByName(String name) {
-        return pokemons.stream()
-                      .filter(pokemon -> pokemon.getName().equals(name))
-                      .findFirst()
-                      .orElse(null);
+    public void getPokemonByName(String name, PokemonServiceCallBack callback) {
+        callback.onSuccess(pokemons);
     }
 }
