@@ -1,8 +1,12 @@
 package com.example.myfirstapplication;
 
-import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -34,14 +38,27 @@ public class MainActivity extends AppCompatActivity {
     private List<String> pokemonDisplayList;
     private ArrayAdapter<String> adapter;
 
+    private final ActivityResultLauncher<Intent> pokemonDetailLauncher = registerForActivityResult(
+        new ActivityResultContracts.StartActivityForResult(),
+        new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if (result.getResultCode() == RESULT_OK) {
+                    Intent data = result.getData();
+                    if (data != null) {
+                        String favoritePokemon = data.getStringExtra("POKEMON_FAVORITE");
+                        Toast.makeText(MainActivity.this,
+                            "Pokemon marcado como favorito: " + favoritePokemon,
+                            Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //RetrofitBuilder
-
-        //Apiservice.getUserById()
-
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "⭐ onCreate: La Activity está siendo creada");
+        Log.d(TAG, "⭐ onCreate: La Activity MainActivity está siendo creada");
         setContentView(R.layout.activity_main);
 
         listView = findViewById(R.id.listView);
@@ -55,26 +72,9 @@ public class MainActivity extends AppCompatActivity {
             String selectedPokemon = pokemonDisplayList.get(position);
             String pokemonName = selectedPokemon.split(" - ")[0];
 
-            pokemonRepository.getPokemonByName(pokemonName, new PokemonServiceCallBack() {
-                @Override
-                public void onSuccess(List<Pokemon> pokemons) {
-                    if (!pokemons.isEmpty()) {
-                        Pokemon pokemon = pokemons.get(0);
-                        runOnUiThread(() -> new AlertDialog.Builder(MainActivity.this)
-                            .setTitle(pokemon.getName())
-                            .setMessage("Tipo: " + pokemon.getType() + "\n")
-                            .setPositiveButton("OK", null)
-                            .show());
-                    }
-                }
-
-                @Override
-                public void onError(Throwable error) {
-                    runOnUiThread(() -> Toast.makeText(MainActivity.this,
-                        "Error al cargar el Pokemon: " + error.getMessage(),
-                        Toast.LENGTH_LONG).show());
-                }
-            });
+            Intent intent = new Intent(MainActivity.this, PokemonDetailActivity.class);
+            intent.putExtra(PokemonDetailActivity.EXTRA_POKEMON_NAME, pokemonName);
+            pokemonDetailLauncher.launch(intent);
         });
     }
 
