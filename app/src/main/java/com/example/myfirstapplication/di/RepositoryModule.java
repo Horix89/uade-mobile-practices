@@ -1,7 +1,7 @@
 package com.example.myfirstapplication.di;
 
-import com.example.myfirstapplication.data.repository.PokemonRetrofitRepository;
-import com.example.myfirstapplication.data.repository.PokemonRepository;
+import com.example.myfirstapplication.data.repository.pokemon.PokemonRetrofitRepository;
+import com.example.myfirstapplication.data.repository.pokemon.PokemonRepository;
 import dagger.Binds;
 import dagger.Module;
 import dagger.hilt.InstallIn;

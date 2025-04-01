@@ -8,9 +8,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myfirstapplication.data.repository.PokemonServiceCallBack;
+import com.example.myfirstapplication.data.repository.pokemon.PokemonServiceCallBack;
 import com.example.myfirstapplication.model.Pokemon;
-import com.example.myfirstapplication.data.repository.PokemonRepository;
+import com.example.myfirstapplication.data.repository.pokemon.PokemonRepository;
+import com.example.myfirstapplication.data.repository.token.TokenRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Inject
     PokemonRepository pokemonRepository;
+
+    @Inject
+    TokenRepository tokenRepository;
 
     private ListView listView;
     private List<String> pokemonDisplayList;

@@ -1,4 +1,4 @@
-package com.example.myfirstapplication.data.repository;
+package com.example.myfirstapplication.data.repository.pokemon;
 
 import com.example.myfirstapplication.data.api.PokeApiService;
 import com.example.myfirstapplication.data.api.model.PokemonDetailResponse;
